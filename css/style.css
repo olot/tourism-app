@@ -1,0 +1,63 @@
+
+* {
+  font-family: 'Open Sans', serif;
+  box-sizing: border-box;
+  text-align: center;
+  color: white;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+body {
+  max-width: 75vw;
+  margin: auto;
+  background-color: #d9ae00;
+  background-image: url("http://www.transparenttextures.com/patterns/brick-wall-dark.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+.button {
+  width: 100px;
+  height: 50px;
+  border-radius: 100px;
+  background-color: white;
+  color: #d9ae00;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  border: 0;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.textbox {
+  color: #d9ae00;
+  width: 22vw;
+  height: 35px;
+  font-size: 1.2em;
+  border-radius: 100px;
+  border: none;
+}
+
+input::-webkit-input-placeholder {
+color: #d9ae00 !important;
+}
+
+a {
+  color: #47179E;
+  text-decoration: none;
+  font-size: 2em;
+}
+
+.weather {
+  background-color: #47179E;
+  background-image: url("http://www.transparenttextures.com/patterns/brick-wall-dark.png");
+  border-radius: 200px;
+  max-width: 50vw;
+  margin: auto;
+
+}
+
+.button:focus {outline:0;}
+.textbox:focus {outline:0;}
