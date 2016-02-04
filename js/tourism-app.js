@@ -1,11 +1,11 @@
 
 document.getElementById('location-getter').addEventListener('submit',function(e){
     e.preventDefault();
-    document.getElementById('results').innerHTML += "yo!!!";
+    document.getElementById('results').innerHTML += "";
     var location = document.querySelector('#location-getter input[type="text"]').value;
-    getEvent(location);
-
-
+    var JSONresults = getEvent(location);
+    var arrayResults = parseEventData(JSONresults);
+    appendEventResultsToDOM(arrayResults);
 });
 
 
@@ -31,3 +31,22 @@ function parseEventData(JSONobject) {
   });
   return resultArr;
 }
+
+var appendEventResultsToDOM = function(results) {
+  results.forEach(function(el) {
+    var nameTag = document.createElement('h3');
+    var linkTag = document.createElement('a');
+    var descriptionTag = document.createElement('p');
+    var timeTag = document.createElement('p');
+
+    linkTag.href = el.url;
+    linkTag.innerHTML = el.name;
+    descriptionTag.innerHTML = el.description;
+    timeTag.innerHTML = el.time;
+
+    nameTag.appendChild(linkTag);
+    document.getElementById('results').appendChild(nameTag);
+    document.getElementById('results').appendChild(timeTag);
+    document.getElementById('results').appendChild(descriptionTag);
+  });
+};
