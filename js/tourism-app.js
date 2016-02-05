@@ -1,25 +1,23 @@
-
 document.getElementById('location-getter').addEventListener('submit',function(e){
     e.preventDefault();
     document.getElementById('results').innerHTML = "";
-    // var token = document.querySelector('#token input[type="text"]').value;
-    var location = document.querySelector('#location-getter input[type="text"]').value;
-    var JSONresults = getEvent(location);
+    var eventbriteToken = document.querySelector('#eventbrite').value;
+    var metOfficeToken = document.querySelector('#metOffice').value;
+    var location = document.querySelector('#location').value;
+    var JSONresults = getEvent(location, eventbriteToken);
     var arrayResults = parseEventData(JSONresults);
-    var locationsArray = getLocationsArray(getLocationsObject());
+    var locationsArray = getLocationsArray(getLocationsObject(metOfficeToken));
     var eventLocation = getEventLocation(JSONresults);
     var locationId = findLocationID(eventLocation[0], eventLocation[1], locationsArray);
-    var weatherResults = parseWeatherData(getWeather(locationId));
-    console.log(weatherResults, "-------", eventLocation, locationId);
+    var weatherResults = parseWeatherData(getWeather(locationId, metOfficeToken));
     appendWeatherResultsToDOM(weatherResults);
     appendEventResultsToDOM(arrayResults);
 });
 
 
-function getEvent(location){
+function getEvent(location, eventbriteToken){
   var xhr = new XMLHttpRequest();
-  var url = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.address="+location+"&location.within=
-  \ &start_date.keyword=today&token=RFUODMEENNH4TOA4DOXH";
+  var url = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.address="+location+"&location.within=5mi&start_date.keyword=today&token="+eventbriteToken;
   xhr.open("GET", url, false);
   xhr.send();
   return JSON.parse(xhr.response);
@@ -29,9 +27,16 @@ function getEvent(location){
 function parseEventData(JSONobject) {
   var resultArr = [];
   JSONobject.events.forEach(function(el) {
+    var desc;
+    if (el.description.text===null) {
+      desc = 'Description not available';
+    } else {
+      desc = (el.description.text).split('.')[0]+'.';
+    }
+
     resultArr.push({ name: el.name.text,
-                     description: el.description.text,
-                     time: el.start.local,
+                     description: desc,
+                     time: el.start.local.split('T')[1],
                      url: el.url});
   });
   return resultArr;
@@ -48,15 +53,18 @@ function getEventLocation(JSONObject){
 
 var appendEventResultsToDOM = function(results) {
   results.forEach(function(el) {
+    //
     var nameTag = document.createElement('h3');
     var linkTag = document.createElement('a');
     var descriptionTag = document.createElement('p');
     var timeTag = document.createElement('p');
+    timeTag.classList.add('eventTime');
+
 
     linkTag.href = el.url;
     linkTag.innerHTML = el.name;
     descriptionTag.innerHTML = el.description;
-    timeTag.innerHTML = el.time;
+    timeTag.innerHTML = "Time: "+el.time.substr(0,5);
 
     nameTag.appendChild(linkTag);
     document.getElementById('results').appendChild(nameTag);
@@ -68,22 +76,30 @@ var appendEventResultsToDOM = function(results) {
 var appendWeatherResultsToDOM = function(resultsArray) {
     var weatherDiv = document.createElement('div');
     weatherDiv.className += 'weather';
+    var titleTag = document.createElement('h3');
     var temperatureTag = document.createElement('h3');
     var weatherTypeTag = document.createElement('h3');
+    temperatureTag.classList.add('temperature');
+    var eventsTitle = document.createElement('h3');
+    eventsTitle.classList.add('eventsTitle');
 
-    temperatureTag.innerHTML = 'Temp: ' + resultsArray[0] + "&#8451";
-    weatherTypeTag.innerHTML = 'Weather: ' + resultsArray[1];
+    titleTag.innerHTML = "Today's weather";
+    temperatureTag.innerHTML = resultsArray[0] + "&#8451";
+    weatherTypeTag.innerHTML = resultsArray[1];
+    eventsTitle.innerHTML = "Events happening today";
 
     document.getElementById('results').appendChild(weatherDiv);
+    document.getElementsByClassName('weather')[0].appendChild(titleTag);
     document.getElementsByClassName('weather')[0].appendChild(temperatureTag);
     document.getElementsByClassName('weather')[0].appendChild(weatherTypeTag);
+    document.getElementById('results').appendChild(eventsTitle);
 };
 
 //start ivans code
 
-function getLocationsObject(){
+function getLocationsObject(metOfficeToken){
   var xhr = new XMLHttpRequest();
-  var url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/sitelist?key=396c5ed0-9f0b-48a0-830c-9ca1133b8453";
+  var url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/sitelist?key="+metOfficeToken;
   xhr.open("GET", url, false);
   xhr.send();
   return JSON.parse(xhr.response);
@@ -113,15 +129,14 @@ function findLocationID(latitude, longitude, array) {
   });
   var locationIDArray = longArray[0] || latArray[0];
   var locationID = locationIDArray.locID;
-  console.log('locationidis-------', locationID);
   return locationID;
 }
 
 //end
 
-var getWeather = function(locationID){
+var getWeather = function(locationID, metOfficeToken){
   var xhr = new XMLHttpRequest();
-  var url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/"+locationID+"?res=daily&key=396c5ed0-9f0b-48a0-830c-9ca1133b8453";
+  var url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/"+locationID+"?res=daily&key="+metOfficeToken;
   xhr.open("GET", url, false);
   xhr.send();
   return JSON.parse(xhr.response);
@@ -165,9 +180,8 @@ var weatherObject = {
 
 function parseWeatherData(JSONobject) {
   var resultArr = [];
-  var temperarure = JSONobject.SiteRep.DV.Location.Period[0].Rep[0].Dm;
+  var temperature = JSONobject.SiteRep.DV.Location.Period[0].Rep[0].Dm;
   var weatherType = JSONobject.SiteRep.DV.Location.Period[0].Rep[0].W;
-  console.log(temperarure, weatherObject[weatherType]);
-  resultArr.push(temperarure, weatherObject[weatherType]);
+  resultArr.push(temperature, weatherObject[weatherType]);
   return resultArr;
 }

@@ -3,20 +3,49 @@
   font-family: 'Open Sans', serif;
   box-sizing: border-box;
   text-align: center;
-  color: white;
+  color: grey;
 }
 
 h1, h2, h3 {
   text-align: center;
+  color: white;
+}
+
+h1 {
+  font-size: 2.7em;
+  color: #e0be32;
+}
+
+.eventsTitle {
+  color: grey;
+  font-size: 2.5em;
+  font-weight: bold;
 }
 
 body {
-  max-width: 75vw;
+  /*max-width: 75vw;*/
   margin: auto;
-  background-color: #d9ae00;
-  background-image: url("http://www.transparenttextures.com/patterns/brick-wall-dark.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  background-color: white; /*d9ae00*/
+  margin-top: 0px;
+  position: relative;
+  top: -20px;
+
 }
+
+.form-container {
+  background-color: #00c6e0; /*d9ae00*/
+  background-image: url("http://www.transparenttextures.com/patterns/brick-wall-dark.png");
+  height: 63vh;
+  padding-top: 20px;
+}
+
+.results-container {
+    max-width: 75vw;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .button {
   width: 100px;
   height: 50px;
@@ -45,19 +74,43 @@ color: #d9ae00 !important;
 }
 
 a {
-  color: #47179E;
+  color: #d9ae00; /*47179E*/
   text-decoration: none;
-  font-size: 2em;
+  font-size: 1.6em;
+  text-shadow: 0.5px 0.5px 0.5px rgba(50, 50, 50, 0.5);
+}
+
+a:hover {
+  text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);
 }
 
 .weather {
-  background-color: #47179E;
-  background-image: url("http://www.transparenttextures.com/patterns/brick-wall-dark.png");
-  border-radius: 200px;
+  background-color: #d9ae00; /*47179E*/
+  border-radius: 50px;
   max-width: 50vw;
   margin: auto;
+  /*background-image: url(http://previews.123rf.com/images/tupungato/tupungato1303/tupungato130300053/18266327-Doodle-seamless-background-texture-illustration-weather-symbols-collection-with-suns-clouds-storms-a-Stock-Vector.jpg);*/
+  /*text-shadow: 1px 1px 1px rgba(50, 50, 50, 0.5);*/
+  color: black;
 
+}
+
+.temperature {
+  font-size: 2.1em;
+  margin-bottom: 0px;
 }
 
 .button:focus {outline:0;}
 .textbox:focus {outline:0;}
+
+.button {
+  margin-bottom: 20px;
+}
+
+.eventTime {
+  font-weight: bold;
+}
+
+.event {
+  border-bottom: 2px;
+}
