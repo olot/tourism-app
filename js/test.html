@@ -9,21 +9,26 @@
 <body>
 
   <div class="form-container">
-    <h3>Enter a Location</h3>
+    <h1>TripAppVisor</h1>
     <form id="location-getter">
-      <input type="text" placeholder='e.g. name, town, postcode...' name="location" size="30" autofocus required>
-      <input type="submit" value="Submit">
+      <h3>Enter API keys</h3>
+      <input id="eventbrite" class="textbox" type="text" placeholder='Eventbrite API key' name="eventbriteToken" size="50" autofocus required>
+      <input id="metOffice" class="textbox" type="text" placeholder='Met Office API key' name="metOfficeToken" size="50" autofocus required>
+      <h3>Enter a Location</h3>
+      <input id="location" class="textbox" type="text" placeholder='e.g. town, postcode...' name="location" size="30" autofocus required>
+      <input class="button "type="submit" value="Submit">
     </form>
   </div>
+
   <div class="results-container">
     <div id="results"></div>
   </div>
 
-  <!-- <div id="qunit"></div>
+  <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="http://code.jquery.com/qunit/qunit-1.20.0.js"></script> -->
+  <script src="http://code.jquery.com/qunit/qunit-1.20.0.js"></script>
+  <script src="test.js"></script>
   <script src="tourism-app.js"></script>
-  <!-- <script src="test.js"></script> -->
 </body>
 </html>
