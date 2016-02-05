@@ -37,3 +37,9 @@ QUnit.test("the keys in our array should be populated with values", function(ass
   var value = eventObject.url;
   assert.ok(value.length > 0, "Passed!");
 });
+
+QUnit.test("the getWeather function should return an object", function(assert){
+  var expected = "object";
+  var actual = typeof getWeather("london");
+  assert.equal(actual, expected, "Passed!" );
+});
