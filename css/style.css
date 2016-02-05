@@ -35,7 +35,7 @@ body {
 .form-container {
   background-color: #00c6e0; /*d9ae00*/
   background-image: url("http://www.transparenttextures.com/patterns/brick-wall-dark.png");
-  height: 63vh;
+  min-height: 75vh;
   padding-top: 20px;
 }
 
@@ -55,6 +55,7 @@ body {
   display: block;
   margin: auto;
   margin-top: 20px;
+  margin-bottom: 20px;
   border: 0;
   font-size: 1.1em;
   font-weight: bold;
@@ -102,10 +103,6 @@ a:hover {
 
 .button:focus {outline:0;}
 .textbox:focus {outline:0;}
-
-.button {
-  margin-bottom: 20px;
-}
 
 .eventTime {
   font-weight: bold;

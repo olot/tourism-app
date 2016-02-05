@@ -2,9 +2,11 @@ document.getElementById('location-getter').addEventListener('submit',function(e)
     e.preventDefault();
     document.getElementById('results').innerHTML = "";
     var eventbriteToken = document.querySelector('#eventbrite').value;
+    var distance = document.querySelector('#distance').value;
+    console.log(distance);
     var metOfficeToken = document.querySelector('#metOffice').value;
     var location = document.querySelector('#location').value;
-    var JSONresults = getEvent(location, eventbriteToken);
+    var JSONresults = getEvent(location, eventbriteToken, distance);
     var arrayResults = parseEventData(JSONresults);
     var locationsArray = getLocationsArray(getLocationsObject(metOfficeToken));
     var eventLocation = getEventLocation(JSONresults);
@@ -15,9 +17,9 @@ document.getElementById('location-getter').addEventListener('submit',function(e)
 });
 
 
-function getEvent(location, eventbriteToken){
+function getEvent(location, eventbriteToken, distance){
   var xhr = new XMLHttpRequest();
-  var url = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.address="+location+"&location.within=5mi&start_date.keyword=today&token="+eventbriteToken;
+  var url = "https://www.eventbriteapi.com/v3/events/search/?sort_by=date&location.address="+location+"&location.within="+distance+"mi&start_date.keyword=today&token="+eventbriteToken;
   xhr.open("GET", url, false);
   xhr.send();
   return JSON.parse(xhr.response);
