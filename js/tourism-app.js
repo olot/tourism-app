@@ -14,6 +14,7 @@ document.getElementById('location-getter').addEventListener('submit',function(e)
     var weatherResults = parseWeatherData(getWeather(locationId, metOfficeToken));
     appendWeatherResultsToDOM(weatherResults);
     appendEventResultsToDOM(arrayResults);
+    tests();
 });
 
 
