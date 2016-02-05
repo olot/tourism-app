@@ -9,9 +9,13 @@
   <body>
     <div class="form-container">
       <h1>TripAppVisor</h1>
-			<h3>Enter a Location</h3>
+
 			<form id="location-getter">
-				<input class="textbox" type="text" placeholder='e.g. town, postcode...' name="location" size="30" autofocus required>
+        <h3>Enter API keys</h3>
+        <input id="eventbrite" class="textbox" type="text" placeholder='Eventbrite API key' name="eventbriteToken" size="50" autofocus required>
+        <input id="metOffice" class="textbox" type="text" placeholder='Met Office API key' name="metOfficeToken" size="50" autofocus required>
+        <h3>Enter a Location</h3>
+        <input id="location" class="textbox" type="text" placeholder='e.g. town, postcode...' name="location" size="30" autofocus required>
 				<input class="button "type="submit" value="Submit">
 			</form>
 		</div>
